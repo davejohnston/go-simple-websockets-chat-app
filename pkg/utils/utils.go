@@ -100,6 +100,7 @@ func GetItem(id string) (*model.Item, error) {
 	return &item, nil
 }
 
+// PostConnection sends the request payload back to the client using the ConnectionId as the identifier.
 func PostConnection(item *model.Item, request events.APIGatewayWebsocketProxyRequest) error {
 
 	gw := getAPIGateway(request)
