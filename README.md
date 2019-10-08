@@ -1,5 +1,7 @@
 # go-simple-websockets-chat-app
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/davejohnston/go-simple-websockets-chat-app)](https://goreportcard.com/badge/github.com/davejohnston/go-simple-websockets-chat-app)
+
 This is a golang implementation for the AWS example simple-websocket-chat-app.  See https://github.com/aws-samples/simple-websockets-chat-app for the original implementation.  There are three functions contained within the directories and a SAM template that wires them up to a DynamoDB table and provides the minimal set of permissions needed to run the app:
 
 
@@ -52,8 +54,6 @@ You can issue the following command in a shell to build it:
 
 ### Local development
 
-TODO
-
 First and foremost, we need a `S3 bucket` where we can upload our Lambda functions packaged as ZIP before we deploy anything - If you don't have a S3 bucket to store code artifacts then this is a good time to create one:
 
 ```bash
@@ -76,6 +76,26 @@ sam deploy \
     --stack-name go-simple-websockets-chat-app \
     --capabilities CAPABILITY_IAM
 ```
+
+### Testing 
+Install the wscat client.
+```bash
+npm install -g wscat
+```
+
+Now make a request to your depolyed API gateway
+
+```bash
+wscat -c wss://aabbccddee.execute-api.us-east-1.amazonaws.com/Prod/
+```
+
+This will present a terminal, where you can send messages that will be echo'd back.  e.g. 
+```
+connected (press CTRL+C to quit)
+> {"message":"sendmessage", "data":"hello world"}
+< {"message":"sendmessage", "data":"hello world"}
+```
+
 
 > **See [Serverless Application Model (SAM) HOWTO Guide](https://github.com/awslabs/serverless-application-model/blob/master/HOWTO.md) for more details in how to get started.**
 
